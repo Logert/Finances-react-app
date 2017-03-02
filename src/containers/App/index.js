@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
+import './App.scss'
 
 export default class App extends Component {
   render() {
     return (
       <div className='container'>
-        <div className="row">
+        <div className="row navbar-top">
             <nav className="navbar navbar-default">
                 <div className="container-fluid">
                     <div className="navbar-header">
@@ -36,7 +37,7 @@ export default class App extends Component {
                         </ul>
                         <form className="navbar-form navbar-left">
                             <div className="form-group">
-                                <input type="text" className="form-control" placeholder="Поиск операции"/>
+                                <input type="text" className="form-control" placeholder="Поиск по операциям"/>
                             </div>
                             <button type="submit" className="btn btn-default">Найти</button>
                         </form>
@@ -49,15 +50,6 @@ export default class App extends Component {
                 </div>
             </nav>
 
-            {/*<div className="col-md-3">*/}
-                {/*<h1>Logo</h1>*/}
-            {/*</div>*/}
-            {/*<div className="col-md-6">*/}
-                {/*<h1>Search</h1>*/}
-            {/*</div>*/}
-            {/*<div className="col-md-3">*/}
-                {/*<h1>Login </h1>*/}
-            {/*</div>*/}
         </div>
           <div className="row">
               <div className="col-md-3">
