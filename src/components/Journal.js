@@ -1,6 +1,30 @@
 import React, { Component } from 'react'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { selectRow, addRow } from '../actions'
 
-export default class Journal extends Component {
+class Journal extends Component {
+    constructor(props) {
+        super(props)
+    }
+    tableList() {
+        return (
+            this.props.journal.map((table,id) => {
+                return (
+                    <tr key={id} onClick={ () => { this.props.selectRow(table) }} >
+                        <td>{table.date}</td>
+                        <td>{table.sum}</td>
+                        <td>{table.kat}</td>
+                    </tr>
+                )
+            })
+        )
+    }
+    addOperation() {
+        return (
+            this.props.addOperation()
+        )
+    }
     render() {
         return (
             <div className="panel panel-default">
@@ -11,7 +35,7 @@ export default class Journal extends Component {
                 </div>
                 <div className="panel-body">
                     <div className="btn-group">
-                        <button className="btn btn-primary">Добавить операцию</button>
+                        <button className="btn btn-primary" onClick={::this.addOperation}>Добавить операцию</button>
                         <button className="btn btn-default" disabled={true}>Загрузить выписку</button>
                     </div>
                 </div>
@@ -24,21 +48,7 @@ export default class Journal extends Component {
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>qweazxv</td>
-                        <td>qweazxv</td>
-                        <td>qweazxv</td>
-                    </tr>
-                    <tr>
-                        <td>qweazxv</td>
-                        <td>qweazxv</td>
-                        <td>qweazxv</td>
-                    </tr>
-                    <tr>
-                        <td>qweazxv</td>
-                        <td>qweazxv</td>
-                        <td>qweazxv</td>
-                    </tr>
+                    {this.tableList()}
                     </tbody>
                 </table>
             </div>
@@ -46,3 +56,18 @@ export default class Journal extends Component {
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        journal: state.journal
+    }
+}
+
+function dispatchToProps(dispatch) {
+    return {
+        selectRow: bindActionCreators(selectRow, dispatch),
+        addOperation: bindActionCreators(addRow ,dispatch)
+    }
+}
+
+export default connect(mapStateToProps, dispatchToProps)(Journal)
