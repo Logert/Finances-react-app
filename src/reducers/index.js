@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux';
-import reducerJournal from './reducer-journal';
+import JournalReducer from './Journal-reducer';
+import MoneyReducer from './Money-reducer'
 
 const rootReducer = combineReducers({
-    journal: reducerJournal
+    JournalReducer,
+    MoneyReducer
 });
 
 export default rootReducer;

@@ -59,7 +59,7 @@ class Journal extends Component {
 
 function mapStateToProps(state) {
     return {
-        journal: state.journal
+        journal: state.JournalReducer
     }
 }
 

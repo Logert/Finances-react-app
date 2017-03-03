@@ -13,7 +13,7 @@ const initialState = [
         date: '21.01.2017',
         sum: 50,
         type: '-',
-        kat: 'qwe'
+        kat: 'Коммунальные'
     },
     {
         id: 3,
@@ -27,7 +27,7 @@ const initialState = [
 let id = 5;
 let date = new Date().toLocaleDateString();
 
-export default function reducerJournal (state = initialState, action) {
+export default function JournalReducer (state = initialState, action) {
     switch (action.type) {
         case ADD_OPERATION: return [...state, {
             id: id++,
