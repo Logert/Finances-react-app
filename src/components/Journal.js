@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
-import { selectRow, ActionAddOperation } from '../actions'
+import { selectRow, actionAddOperation, actionChangeMoney } from '../actions'
 import './Journal.scss'
 
 class Journal extends Component {
@@ -45,6 +45,15 @@ class Journal extends Component {
             })
         )
     }
+    moneyList () {
+        return (
+            this.props.money.map((el) => {
+                return (
+                    <p key={el.id} className="list-group-item">{el.name} <span className="badge">{el.value}</span> </p>
+                )
+            })
+        )
+    }
     addOperation() {
         let payload = {
             op_type: this.state.op_type,
@@ -52,10 +61,18 @@ class Journal extends Component {
             kat: this.textInputKat.value,
             comment: this.textInputComment.value
         }
+
+        let money = {
+            id: 0,
+            opType: 0, // 1 добавить , 0 отнять
+            value: 10
+        }
         this.textInputSum.value = 0;
         this.textInputKat.value = this.textInputComment.value = '';
-        return this.props.addOperation(payload)
+        this.props.addOperation(payload);
+        this.props.changeMoney(money);
     }
+
     render() {
         return (
             <div className="panel panel-default">
@@ -81,30 +98,30 @@ class Journal extends Component {
                                         <div className="form-group">
                                             {/*toggle_start*/}
                                             <div className="btn-group" data-toggle="buttons">
-                                                {/*<label onClick={::this.toggleButtonOn} className="btn btn-info active">*/}
-                                                    {/*<input type="radio" />Доход*/}
-                                                {/*</label>*/}
-                                                {/*<label onClick={::this.toggleButtonOff} className="btn btn-info">*/}
-                                                    {/*<input type="radio" />Расход*/}
-                                                {/*</label>*/}
                                                 <button onClick={::this.toggleButtonOn} className={classNames('btn btn-info', {active: this.state.toggledButton})}>Доход</button>
                                                 <button onClick={::this.toggleButtonOff} className={classNames('btn btn-info', {active: !this.state.toggledButton})}>Расход</button>
                                             </div>
                                             {/*toggle_end*/}
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="inputSum">Сумма</label>
+                                            <label htmlFor="inputSum">Сумма:</label>
                                             <div className="input-group" id="inputSum">
                                                 <span className="input-group-addon">BYN</span>
                                                 <input type="number" defaultValue='0' ref={(inputSum) => { this.textInputSum = inputSum; }} className="form-control"/>
                                             </div>
                                         </div>
+                                            <div className="form-group">
+                                                <label htmlFor="scheta">На счет:</label>
+                                                <div className="list-group" id="scheta">
+                                                    {::this.moneyList()}
+                                                </div>
+                                            </div>
                                         <div className="form-group">
-                                            <label htmlFor="inputKat">Категория</label>
+                                            <label htmlFor="inputKat">Категория:</label>
                                             <input id="inputKat" type="text" placeholder="Введите категорию" ref={(inputKat) => { this.textInputKat = inputKat; }} className="form-control"/>
                                         </div>
                                         <div className="form-group">
-                                            <label htmlFor="inputComment">Комментарий</label>
+                                            <label htmlFor="inputComment">Комментарий:</label>
                                             <textarea rows="3" placeholder="Введите комментарий" id="inputComment" ref={(inputComment) => { this.textInputComment = inputComment; }} className="form-control"/>
                                         </div>
                                         </form>
@@ -117,6 +134,7 @@ class Journal extends Component {
                             </div>
                         </div>
                         {/*modal_end*/}
+
                     </div>
                 </div>
                 <table className="table table-hover">
@@ -139,15 +157,18 @@ class Journal extends Component {
 
 function mapStateToProps(state) {
     return {
-        journal: state.JournalReducer
+        journal: state.JournalReducer,
+        money: state.MoneyReducer
     }
 }
+
 
 
 function dispatchToProps(dispatch) {
     return {
         selectRow: bindActionCreators(selectRow, dispatch),
-        addOperation: bindActionCreators(ActionAddOperation ,dispatch)
+        addOperation: bindActionCreators(actionAddOperation, dispatch),
+        changeMoney: bindActionCreators(actionChangeMoney, dispatch)
     }
 }
 

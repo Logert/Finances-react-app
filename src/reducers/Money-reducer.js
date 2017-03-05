@@ -1,4 +1,4 @@
-import { ADD_SCHET,DEL_SCHET } from '../constants/Money'
+import { ADD_SCHET,DEL_SCHET, CHANGE_SCHET } from '../constants/Money'
 
 let id = 0;
 
@@ -19,6 +19,16 @@ export default function MoneyReducer (state = initialState, action) {
     switch (action.type) {
         case ADD_SCHET: return [...state];
         case DEL_SCHET: return [...state];
+        case CHANGE_SCHET: state.map((el) => {
+            if (el.id == action.id) {
+                if (action.opType == 0) {
+                    el.value -= action.value
+                }
+                if (action.opType == 1) {
+                    el.value += action.value
+                }
+            }
+        }); return state
         default: return state;
     }
 }
