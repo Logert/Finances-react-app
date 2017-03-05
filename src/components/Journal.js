@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import classNames from 'classnames'
 import { selectRow, ActionAddOperation } from '../actions'
 
 class Journal extends Component {
@@ -10,8 +11,12 @@ class Journal extends Component {
     tableList() {
         return (
             this.props.journal.map((table,id) => {
+                let rowClass = classNames({
+                    'success': table.type == '+',
+                    'danger': table.type == '-'
+                })
                 return (
-                    <tr key={id} onClick={ () => { this.props.selectRow(table) }} >
+                    <tr className={rowClass} key={id} onClick={ () => { this.props.selectRow(table) }} >
                         <td>{table.date}</td>
                         <td>{table.sum}</td>
                         <td>{table.kat}</td>
