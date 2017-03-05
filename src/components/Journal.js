@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { selectRow, addRow } from '../actions'
+import { selectRow, ActionAddOperation } from '../actions'
 
 class Journal extends Component {
     constructor(props) {
@@ -21,9 +21,14 @@ class Journal extends Component {
         )
     }
     addOperation() {
-        return (
-            this.props.addOperation()
-        )
+        let payload = {
+            op_type: '+',
+            sum: this.textInputSum.value,
+            kat: 'test',
+            comment: 'test comment'
+        }
+        this.textInputSum.value='';
+        return this.props.addOperation(payload)
     }
     render() {
         return (
@@ -43,14 +48,17 @@ class Journal extends Component {
                                 <div className="modal-content">
                                     <div className="modal-header">
                                         <button type="button" className="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                        <h4 className="modal-title" id="myModalLabel">Modal title</h4>
+                                        <h4 className="modal-title" id="myModalLabel">Добавление операции</h4>
                                     </div>
                                     <div className="modal-body">
-                                        ...
+                                        <div className="input-group">
+                                            <span className="input-group-addon">BYN</span>
+                                            <input type="number" ref={(inputSum) => { this.textInputSum = inputSum; }} className="form-control"/>
+                                        </div>
                                     </div>
                                     <div className="modal-footer">
-                                        <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
-                                        <button type="button" className="btn btn-primary">Save changes</button>
+                                        <button type="button" className="btn btn-default" data-dismiss="modal">Закрыть</button>
+                                        <button type="button" onClick={::this.addOperation} className="btn btn-primary" data-dismiss="modal">Добавить операцию</button>
                                     </div>
                                 </div>
                             </div>
@@ -82,10 +90,11 @@ function mapStateToProps(state) {
     }
 }
 
+
 function dispatchToProps(dispatch) {
     return {
         selectRow: bindActionCreators(selectRow, dispatch),
-        addOperation: bindActionCreators(addRow ,dispatch)
+        addOperation: bindActionCreators(ActionAddOperation ,dispatch)
     }
 }
 

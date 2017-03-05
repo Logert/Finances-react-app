@@ -7,4 +7,11 @@ export const selectRow = (table) => {
         payload: table
     }
 }
-export const addRow = () => ({type: ADD_OPERATION})
+export const ActionAddOperation = (payload) => (
+    {
+        type: ADD_OPERATION,
+        op_type: payload.op_type,
+        sum: payload.sum,
+        kat: payload.kat,
+        comment: payload.comment
+    })
