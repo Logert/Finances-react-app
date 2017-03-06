@@ -1,0 +1,3 @@
+export const ADD_KATEGORY = 'ADD_KATEGORY';
+export const DEL_KATEGORY = 'DEL_KATEGORY';
+export const EDIT_KATEGORY = 'EDIT_KATEGORY';
