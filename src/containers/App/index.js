@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router'
-import { connect } from 'react-redux'
+import Money from '../../components/Money'
 import './App.scss'
 
 class App extends Component {
-    constructor(props) {
-        super(props)
-    }
     render() {
         return (
           <div className='container'>
@@ -45,35 +42,12 @@ class App extends Component {
                                 <button className="btn btn-primary">Войти</button>
                             </form>
                         </div>
-
-
                     </div>
                 </nav>
-
             </div>
               <div className="row">
                   <div className="col-md-3">
-                    <div className="panel panel-default">
-                        <div className="panel-heading">
-                            <h3 className="panel-title">Счета</h3>
-                        </div>
-                        <div className="panel-body">
-
-                            {
-                                this.props.money.map((el) => {
-                                    return (
-                                        <h3 key={el.id}>{el.name} <span className="label label-success">{el.value} BYN</span></h3>
-                                    )
-                                })
-                            }
-
-                            <br/>
-                            <h2>Всего: <span className="label label-primary">
-                                {this.props.money.reduce((sum, curr) => {return sum+curr.value},0)} BYN
-                            </span>
-                            </h2>
-                        </div>
-                    </div>
+                      <Money/>
                   </div>
                   <div className="col-md-9">
                       {this.props.children}
@@ -84,10 +58,4 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(state) {
-    return {
-        money: state.MoneyReducer
-    }
-}
-
-export default connect(mapStateToProps)(App)
+export default App;
