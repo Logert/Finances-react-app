@@ -17,7 +17,7 @@ class Journal extends Component {
                 return (
                     <tr className={rowClass} key={id} onClick={ () => { this.props.selectRow(table) }} >
                         <td>{table.date}</td>
-                        <td>{table.sum}</td>
+                        <td>{table.type=='+' ? '+' : '-'}{table.sum}</td>
                         <td>{table.kat}</td>
                     </tr>
                 )
