@@ -4,7 +4,8 @@
   "description": "React-router RU tutorial",
   "main": "index.js",
   "scripts": {
-    "start": "node bin/server.js"
+    "start": "node bin/server.js",
+    "build": "set NODE_ENV=production webpack --progress --verbose --display-error-details --config webpack/common.config.js"
   },
   "author": "Maxim Patsianskiy",
   "license": "MIT",
