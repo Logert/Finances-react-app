@@ -17,18 +17,22 @@ const initialState = [
 
 export default function MoneyReducer (state = initialState, action) {
     switch (action.type) {
-        case ADD_SCHET: return [...state];
-        case DEL_SCHET: return [...state];
-        case CHANGE_SCHET: state.map((el) => {
+        case ADD_SCHET: return [...state, {
+            id: id++,
+            name: 'Visa',
+            value: 0
+        } ];
+        case DEL_SCHET: return state;
+        case CHANGE_SCHET: return state.map((el) => {
             if (el.id == action.id) {
                 if (action.opType == 0) {
-                    el.value -= action.value
+                    return {...el, value: el.value-action.value }
                 }
                 if (action.opType == 1) {
-                    el.value += action.value
+                    return {...el, value: el.value+action.value }
                 }
-            }
-        }); return state
+            } else return {...el}
+        })
         default: return state;
     }
 }
