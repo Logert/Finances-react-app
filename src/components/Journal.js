@@ -10,7 +10,8 @@ class Journal extends Component {
         super(props)
         this.state = {
             toggledButton: true,
-            op_type: '+'
+            op_type: '+',
+            selectedMoney: 0
         }
     }
 
@@ -26,8 +27,6 @@ class Journal extends Component {
             op_type: '+'
         }));
     }
-
-
     tableList() {
         return (
             this.props.journal.map((table,id) => {
@@ -48,8 +47,18 @@ class Journal extends Component {
     moneyList () {
         return (
             this.props.money.map((el) => {
+                let active = '';
+
+                if(this.state.selectedMoney == el.id){
+                    active = 'active';
+                }
                 return (
-                    <p key={el.id} className="list-group-item">{el.name} <span className="badge">{el.value}</span> </p>
+                    <a key={el.id}
+                       onClick={ () => {
+                           this.setState(() => ({selectedMoney: el.id}))
+                       }}
+                       className={`list-group-item ${active}`}>
+                        {el.name} <span className="badge">{el.value}</span> </a>
                 )
             })
         )
@@ -63,9 +72,9 @@ class Journal extends Component {
         }
 
         let money = {
-            id: 0,
-            opType: 0, // 1 добавить , 0 отнять
-            value: 10
+            id: this.state.selectedMoney,
+            opType: this.state.op_type == '+' ? 1 : 0,
+            value: Number(this.textInputSum.value)
         }
         this.textInputSum.value = 0;
         this.textInputKat.value = this.textInputComment.value = '';
@@ -161,8 +170,6 @@ function mapStateToProps(state) {
         money: state.MoneyReducer
     }
 }
-
-
 
 function dispatchToProps(dispatch) {
     return {
