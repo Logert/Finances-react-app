@@ -1,5 +1,8 @@
 import { ADD_OPERATION } from '../constants/Journal'
 import { CHANGE_SCHET } from '../constants/Money'
+import { ADD_CURRENCY } from '../constants/Currency'
+import { ADD_KATEGORY } from '../constants/Kategory'
+
 
 export const selectRow = (table) => {
     console.log('You clicked to row: ', table.id)
@@ -24,5 +27,19 @@ export const actionChangeMoney = (money) => (
         id: money.id,
         opType: money.opType,
         value: money.value
+    }
+)
+
+export const actionAddCurrency = (payload) => (
+    {
+        type: ADD_CURRENCY,
+        full_name: payload.full_name,
+        name: payload.name
+    }
+)
+export const actionAddKategory = (payload) => (
+    {
+        type: ADD_KATEGORY,
+        name: payload.name
     }
 )
