@@ -28,7 +28,7 @@ class App extends Component {
                                     <ul className="dropdown-menu">
                                         <li><Link to="/kategory">Категории</Link></li>
                                         <li><Link to="/scheta">Счета</Link></li>
-                                        <li><Link to="/valute">Валюты</Link></li>
+                                        <li><Link to="/currency">Валюты</Link></li>
                                     </ul>
                                 </li>
                             </ul>
