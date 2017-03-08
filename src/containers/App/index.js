@@ -27,7 +27,7 @@ class App extends Component {
                                     <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Настройки <span className="caret"></span></a>
                                     <ul className="dropdown-menu">
                                         <li><Link to="/kategory">Категории</Link></li>
-                                        <li><Link to="/scheta">Счета</Link></li>
+                                        <li><Link to="/money">Счета</Link></li>
                                         <li><Link to="/currency">Валюты</Link></li>
                                     </ul>
                                 </li>

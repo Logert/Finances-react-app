@@ -45,6 +45,15 @@ class AddOperation extends Component {
             })
         )
     }
+    kategoryList() {
+        return (
+            this.props.kategory.map((el) => {
+                return (
+                    <option key={el.id}>{el.name}</option>
+                )
+            })
+        )
+    }
     addOperation() {
         let payload = {
             op_type: this.state.op_type,
@@ -59,7 +68,7 @@ class AddOperation extends Component {
             value: Number(this.textInputSum.value)
         }
         this.textInputSum.value = 0;
-        this.textInputKat.value = this.textInputComment.value = '';
+        this.textInputComment.value = '';
         this.props.addOperation(payload);
         this.props.changeMoney(money);
     }
@@ -94,8 +103,10 @@ class AddOperation extends Component {
                                 </div>
                             </div>
                             <div className="form-group">
-                                <label htmlFor="inputKat">Категория:</label>
-                                <input id="inputKat" type="text" placeholder="Введите категорию" ref={(inputKat) => { this.textInputKat = inputKat; }} className="form-control"/>
+                                <label htmlFor="inputKat">Выберите категорию:</label>
+                                <select className="form-control" ref={(inputKat) => { this.textInputKat = inputKat; }}>
+                                    {::this.kategoryList()}
+                                </select>
                             </div>
                             <div className="form-group">
                                 <label htmlFor="inputComment">Комментарий:</label>
@@ -115,7 +126,8 @@ class AddOperation extends Component {
 
 function mapStateToProps(state) {
     return {
-        money: state.MoneyReducer
+        money: state.MoneyReducer,
+        kategory: state.KategoryReducer
     }
 }
 
