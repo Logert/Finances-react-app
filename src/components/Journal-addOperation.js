@@ -67,8 +67,7 @@ class AddOperation extends Component {
             opType: this.state.op_type == '+' ? 1 : 0,
             value: Number(this.textInputSum.value)
         }
-        this.textInputSum.value = 0;
-        this.textInputComment.value = '';
+        this.textInputComment.value = this.textInputSum.value = '';
         this.props.addOperation(payload);
         this.props.changeMoney(money);
     }
@@ -93,7 +92,7 @@ class AddOperation extends Component {
                                 <label htmlFor="inputSum">Сумма:</label>
                                 <div className="input-group" id="inputSum">
                                     <span className="input-group-addon">BYN</span>
-                                    <input type="number" defaultValue='0' ref={(inputSum) => { this.textInputSum = inputSum; }} className="form-control"/>
+                                    <input type="number" placeholder='0' ref={(inputSum) => { this.textInputSum = inputSum; }} className="form-control"/>
                                 </div>
                             </div>
                             <div className="form-group">
