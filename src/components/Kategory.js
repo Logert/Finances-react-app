@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { selectRow } from '../actions'
 import AddCategory from './Kategory-addKategory'
+import './Kategory.scss'
 
 class Kategory extends Component {
     kategoryList() {
@@ -10,7 +11,8 @@ class Kategory extends Component {
             this.props.kategory.map((table) => {
                 return (
                     <tr key={table.id} onClick={ () => { this.props.selectRow(table) }} >
-                        <td><span className={table.image}></span>{table.name}</td>
+                        <td><span className={table.image+' glyph'}></span>{table.name}</td>
+
                     </tr>
                 )
             })
