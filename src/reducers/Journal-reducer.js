@@ -1,4 +1,4 @@
-import { ADD_OPERATION,DEL_OPERATION } from '../constants/Journal'
+import { ADD_OPERATION, DEL_OPERATION, EDIT_OPERATION } from '../constants/Journal'
 
 const initialState = [
     {
@@ -40,7 +40,14 @@ export default function JournalReducer (state = initialState, action) {
             kat: action.kat,
             comment: action.comment
         }];
-        case DEL_OPERATION: return [...state];
+        case DEL_OPERATION: return state.filter((el) => {
+            return el.id != action.payload
+        });
+        case EDIT_OPERATION: return state.map((el) => {
+            if (el.id == action.id) {
+                return {...el, comment: 'тест' }
+            } else return {...el}
+        });
         default: return state;
     }
 }

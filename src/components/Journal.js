@@ -2,12 +2,11 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import classNames from 'classnames'
-import { selectRow } from '../actions'
+import { actionDelOperation, actionEditOperation } from '../actions'
 import AddOperation from './Journal-addOperation'
 import './Journal.scss'
 
 class Journal extends Component {
-
     tableList() {
         return (
             this.props.journal.map((table) => {
@@ -24,14 +23,30 @@ class Journal extends Component {
                             <small>{table.comment}</small>
                         </td>
                         <td className="journal__btnMore">
-                            <button className="btn btn-default"><span className="glyphicon glyphicon-pencil"></span></button>
-                            <button className="btn btn-default"><span className="glyphicon glyphicon-remove"></span></button>
+                            <button className="btn btn-default" onClick={::this.editOp}><span className="glyphicon glyphicon-pencil"></span></button>
+                            <button className="btn btn-default" onClick={()=>{::this.delOpConfirm(table.id)}}><span className="glyphicon glyphicon-remove"></span></button>
                             <button className="btn btn-default"><span className="glyphicon glyphicon-file"></span></button>
                         </td>
                     </tr>
                 )
             })
         )
+    }
+    delOpConfirm(id) {
+        if (confirm('Вы действительно хотите удалить операцию?')) {
+            this.props.delOperation(id)
+        }
+    }
+    editOp() {
+        let op = {
+            id: 1,
+            date: '1.01.2017',
+            sum: 250,
+            type: '+',
+            kat: 'Личное',
+            comment: 'тест'
+        }
+        this.props.editOperation(op)
     }
 
     render() {
@@ -82,7 +97,8 @@ function mapStateToProps(state) {
 
 function dispatchToProps(dispatch) {
     return {
-        selectRow: bindActionCreators(selectRow, dispatch)
+        delOperation: bindActionCreators(actionDelOperation, dispatch),
+        editOperation: bindActionCreators(actionEditOperation, dispatch)
     }
 }
 

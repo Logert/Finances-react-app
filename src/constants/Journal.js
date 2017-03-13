@@ -1,2 +1,3 @@
 export const ADD_OPERATION = 'ADD_OPERATION';
 export const DEL_OPERATION = 'DEL_OPERATION';
+export const EDIT_OPERATION = 'EDIT_OPERATION';

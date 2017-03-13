@@ -1,4 +1,4 @@
-import { ADD_OPERATION } from '../constants/Journal'
+import { ADD_OPERATION, DEL_OPERATION, EDIT_OPERATION } from '../constants/Journal'
 import { CHANGE_SCHET } from '../constants/Money'
 import { ADD_CURRENCY } from '../constants/Currency'
 import { ADD_KATEGORY } from '../constants/Kategory'
@@ -18,6 +18,22 @@ export const actionAddOperation = (payload) => (
         sum: payload.sum,
         kat: payload.kat,
         comment: payload.comment
+    }
+)
+export const actionDelOperation = (id) => ( {
+        type: DEL_OPERATION,
+        payload: id
+    }
+)
+export const actionEditOperation = (op) => (
+    {
+        type: EDIT_OPERATION,
+        id: op.id,
+        date: op.date,
+        sum: op.sum,
+        opType: op.type,
+        kat: op.kat,
+        comment: op.comment
     }
 )
 
